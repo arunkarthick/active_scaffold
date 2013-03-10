@@ -6,7 +6,7 @@ module ActiveScaffold
       def get_column_value(record, column)
         begin
           method = get_column_method(record, column)
-          value = send(method, record, column)
+          value = method == :format_column_value ? send(method, record, column) : send(method, record)
           value = '&nbsp;'.html_safe if value.nil? or value.blank? # fix for IE 6
           return value
         rescue Exception => e
